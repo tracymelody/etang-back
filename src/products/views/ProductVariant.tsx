@@ -8,9 +8,9 @@ import useNotifier from "@saleor/hooks/useNotifier";
 import { commonMessages } from "@saleor/intl";
 import NotFoundPage from "@saleor/components/NotFoundPage";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
-import { DEFAULT_INITIAL_SEARCH_DATA } from "@saleor/config";
-import useWarehouseSearch from "@saleor/searches/useWarehouseSearch";
-import { decimal } from "../../misc";
+import { useWarehouseList } from "@saleor/warehouses/queries";
+import useShop from "@saleor/hooks/useShop";
+import { decimal, weight } from "../../misc";
 import ProductVariantDeleteDialog from "../components/ProductVariantDeleteDialog";
 import ProductVariantPage, {
   ProductVariantPageSubmitData
@@ -28,8 +28,7 @@ import {
   ProductVariantEditUrlQueryParams,
   ProductVariantEditUrlDialog
 } from "../urls";
-import ProductWarehousesDialog from "../components/ProductWarehousesDialog";
-import { useAddOrRemoveStocks } from "../mutations";
+import { mapFormsetStockToStockInput } from "../utils/data";
 
 interface ProductUpdateProps {
   variantId: string;
@@ -42,6 +41,7 @@ export const ProductVariant: React.FC<ProductUpdateProps> = ({
   productId,
   params
 }) => {
+  const shop = useShop();
   const navigate = useNavigator();
   const notify = useNotifier();
   const intl = useIntl();
@@ -52,28 +52,14 @@ export const ProductVariant: React.FC<ProductUpdateProps> = ({
     setErrors([]);
   }, [variantId]);
 
-  const { result: searchWarehousesOpts } = useWarehouseSearch({
+  const warehouses = useWarehouseList({
+    displayLoader: true,
     variables: {
-      ...DEFAULT_INITIAL_SEARCH_DATA,
-      first: 20
+      first: 50
     }
   });
 
-  const [addOrRemoveStocks, addOrRemoveStocksOpts] = useAddOrRemoveStocks({
-    onCompleted: data => {
-      if (
-        data.productVariantStocksCreate.errors.length === 0 &&
-        data.productVariantStocksDelete.errors.length === 0
-      ) {
-        notify({
-          text: intl.formatMessage(commonMessages.savedChanges)
-        });
-        closeModal();
-      }
-    }
-  });
-
-  const [openModal, closeModal] = createDialogActionHandlers<
+  const [openModal] = createDialogActionHandlers<
     ProductVariantEditUrlDialog,
     ProductVariantEditUrlQueryParams
   >(
@@ -145,24 +131,27 @@ export const ProductVariant: React.FC<ProductUpdateProps> = ({
                 <>
                   <WindowTitle title={data?.productVariant?.name} />
                   <ProductVariantPage
+                    defaultWeightUnit={shop?.defaultWeightUnit}
                     errors={errors}
                     saveButtonBarState={updateVariant.opts.status}
                     loading={disableFormSave}
                     placeholderImage={placeholderImg}
                     variant={variant}
                     header={variant?.name || variant?.sku}
+                    warehouses={
+                      warehouses.data?.warehouses.edges.map(
+                        edge => edge.node
+                      ) || []
+                    }
                     onAdd={() => navigate(productVariantAddUrl(productId))}
                     onBack={handleBack}
-                    onDelete={() =>
-                      navigate(
-                        productVariantEditUrl(productId, variantId, {
-                          action: "remove"
-                        })
-                      )
-                    }
+                    onDelete={() => openModal("remove")}
                     onImageSelect={handleImageSelect}
                     onSubmit={(data: ProductVariantPageSubmitData) =>
                       updateVariant.mutate({
+                        addStocks: data.addStocks.map(
+                          mapFormsetStockToStockInput
+                        ),
                         attributes: data.attributes.map(attribute => ({
                           id: attribute.id,
                           values: [attribute.value]
@@ -170,18 +159,18 @@ export const ProductVariant: React.FC<ProductUpdateProps> = ({
                         costPrice: decimal(data.costPrice),
                         id: variantId,
                         priceOverride: decimal(data.priceOverride),
+                        removeStocks: data.removeStocks,
                         sku: data.sku,
-                        stocks: data.stocks.map(stock => ({
-                          quantity: parseInt(stock.value, 10),
-                          warehouse: stock.id
-                        })),
-                        trackInventory: data.trackInventory
+                        stocks: data.updateStocks.map(
+                          mapFormsetStockToStockInput
+                        ),
+                        trackInventory: data.trackInventory,
+                        weight: weight(data.weight)
                       })
                     }
                     onVariantClick={variantId => {
                       navigate(productVariantEditUrl(productId, variantId));
                     }}
-                    onWarehousesEdit={() => openModal("edit-stocks")}
                   />
                   <ProductVariantDeleteDialog
                     confirmButtonState={deleteVariant.opts.status}
@@ -195,36 +184,6 @@ export const ProductVariant: React.FC<ProductUpdateProps> = ({
                     }
                     open={params.action === "remove"}
                     name={data?.productVariant?.name}
-                  />
-                  <ProductWarehousesDialog
-                    confirmButtonState={addOrRemoveStocksOpts.status}
-                    disabled={addOrRemoveStocksOpts.loading}
-                    errors={[
-                      ...(addOrRemoveStocksOpts.data?.productVariantStocksCreate
-                        .errors || []),
-                      ...(addOrRemoveStocksOpts.data?.productVariantStocksDelete
-                        .errors || [])
-                    ]}
-                    onClose={closeModal}
-                    open={params.action === "edit-stocks"}
-                    warehouses={searchWarehousesOpts.data?.search.edges.map(
-                      edge => edge.node
-                    )}
-                    warehousesWithStocks={
-                      variant?.stocks.map(stock => stock.warehouse.id) || []
-                    }
-                    onConfirm={data =>
-                      addOrRemoveStocks({
-                        variables: {
-                          add: data.added.map(id => ({
-                            quantity: 0,
-                            warehouse: id
-                          })),
-                          remove: data.removed,
-                          variantId
-                        }
-                      })
-                    }
                   />
                 </>
               );

@@ -33,8 +33,8 @@ storiesOf("Views / Products / Create product", module)
       onBack={() => undefined}
       onSubmit={() => undefined}
       saveButtonBarState="default"
-      onWarehouseEdit={() => undefined}
       warehouses={warehouseList}
+      weightUnit="kg"
     />
   ))
   .add("When loading", () => (
@@ -55,8 +55,8 @@ storiesOf("Views / Products / Create product", module)
       onBack={() => undefined}
       onSubmit={() => undefined}
       saveButtonBarState="default"
-      onWarehouseEdit={() => undefined}
       warehouses={undefined}
+      weightUnit="kg"
     />
   ))
   .add("form errors", () => (
@@ -83,7 +83,7 @@ storiesOf("Views / Products / Create product", module)
       onBack={() => undefined}
       onSubmit={() => undefined}
       saveButtonBarState="default"
-      onWarehouseEdit={() => undefined}
       warehouses={warehouseList}
+      weightUnit="kg"
     />
   ));

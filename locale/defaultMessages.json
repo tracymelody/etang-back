@@ -1427,6 +1427,9 @@
   "src_dot_configuration_dot_1233229030": {
     "string": "Miscellaneous"
   },
+  "src_dot_configuration_dot_1440737903": {
+    "string": "Shipping Settings"
+  },
   "src_dot_configuration_dot_1639245766": {
     "string": "View and update your webhook and their settings"
   },
@@ -2765,16 +2768,16 @@
     "context": "order total price",
     "string": "Total"
   },
-  "src_dot_orders_dot_components_dot_OrderProductAddDialog_dot_1542417144": {
-    "context": "dialog header",
-    "string": "Create Product"
-  },
   "src_dot_orders_dot_components_dot_OrderProductAddDialog_dot_2272209368": {
     "context": "variant sku",
     "string": "SKU {sku}"
   },
   "src_dot_orders_dot_components_dot_OrderProductAddDialog_dot_2336947364": {
     "string": "Search by product name, attribute, product type etc..."
+  },
+  "src_dot_orders_dot_components_dot_OrderProductAddDialog_dot_2775402904": {
+    "context": "dialog header",
+    "string": "Add Product"
   },
   "src_dot_orders_dot_components_dot_OrderProductAddDialog_dot_2850255786": {
     "string": "Search Products"
@@ -3073,6 +3076,10 @@
   "src_dot_permissionGroups_dot_components_dot_PermissionGroupDeleteDialog_dot_3528974446": {
     "context": "dialog title",
     "string": "Delete permission group"
+  },
+  "src_dot_permissionGroups_dot_components_dot_PermissionGroupDeleteDialog_dot_956177443": {
+    "context": "deletion error message",
+    "string": "Cant's delete group which is out of your permission scope"
   },
   "src_dot_permissionGroups_dot_components_dot_PermissionGroupDetailsPage_dot_3765873075": {
     "context": "checkbox label",
@@ -3599,6 +3606,14 @@
   "src_dot_products_dot_components_dot_ProductPricing_dot_3015886868": {
     "string": "Charge taxes for this item"
   },
+  "src_dot_products_dot_components_dot_ProductShipping_dot_1325966144": {
+    "context": "product shipping",
+    "string": "Shipping"
+  },
+  "src_dot_products_dot_components_dot_ProductShipping_dot_746695941": {
+    "context": "product weight",
+    "string": "Weight"
+  },
   "src_dot_products_dot_components_dot_ProductStocks_dot_2585918415": {
     "string": "SKU (Stock Keeping Unit)"
   },
@@ -3614,16 +3629,13 @@
     "context": "header",
     "string": "Quantity"
   },
-  "src_dot_products_dot_components_dot_ProductStocks_dot_3143542809": {
-    "string": "This product doesn't have any stock. You can add it <l>here</l>."
-  },
-  "src_dot_products_dot_components_dot_ProductStocks_dot_3482985373": {
-    "context": "button",
-    "string": "Edit Warehouses"
-  },
   "src_dot_products_dot_components_dot_ProductStocks_dot_3633706025": {
     "context": "product inventory, checkbox",
     "string": "Track Inventory"
+  },
+  "src_dot_products_dot_components_dot_ProductStocks_dot_3857433664": {
+    "context": "button",
+    "string": "Assign Warehouse"
   },
   "src_dot_products_dot_components_dot_ProductStocks_dot_849869830": {
     "string": "Active inventory tracking will automatically calculate changes of stock"
@@ -3638,14 +3650,6 @@
   },
   "src_dot_products_dot_components_dot_ProductUpdatePage_dot_2706108815": {
     "string": "Add search engine title and description to make this product easier to find"
-  },
-  "src_dot_products_dot_components_dot_ProductVariantAttributes_dot_1536841622": {
-    "context": "product attribute error",
-    "string": "All attributes should have value"
-  },
-  "src_dot_products_dot_components_dot_ProductVariantAttributes_dot_258966189": {
-    "context": "product attribute error",
-    "string": "This variant already exists"
   },
   "src_dot_products_dot_components_dot_ProductVariantCreatePage_dot_2853608829": {
     "context": "button",
@@ -3851,13 +3855,6 @@
   "src_dot_products_dot_components_dot_ProductVariants_dot_998917294": {
     "context": "product variant name",
     "string": "Variant"
-  },
-  "src_dot_products_dot_components_dot_ProductWarehousesDialog_dot_3482985373": {
-    "context": "dialog header",
-    "string": "Edit Warehouses"
-  },
-  "src_dot_products_dot_components_dot_ProductWarehousesDialog_dot_4112406382": {
-    "string": "Select warehouses that stock selected product"
   },
   "src_dot_products_dot_views_dot_1542417144": {
     "context": "window title",
@@ -4139,6 +4136,9 @@
   "src_dot_services_dot_views_dot_ServiceCreate_dot_3167211165": {
     "context": "window title",
     "string": "Create Service Account"
+  },
+  "src_dot_sessionExpired": {
+    "string": "Your session has expired. Please log in again to continue."
   },
   "src_dot_shipping": {
     "context": "shipping section name",
@@ -5032,6 +5032,10 @@
   "src_dot_utils_dot_errors_dot_attributeCannotBeAssigned": {
     "string": "This attribute cannot be assigned to this product type"
   },
+  "src_dot_utils_dot_errors_dot_attributeRequired": {
+    "context": "product attribute error",
+    "string": "All attributes should have value"
+  },
   "src_dot_utils_dot_errors_dot_attributeVariantsDisabled": {
     "string": "Variants are disabled in this product type"
   },
@@ -5135,6 +5139,10 @@
   },
   "src_dot_utils_dot_errors_dot_variantNoDigitalContent": {
     "string": "This variant does not have any digital content"
+  },
+  "src_dot_utils_dot_errors_dot_variantUnique": {
+    "context": "product attribute error",
+    "string": "This variant already exists"
   },
   "src_dot_vouchers": {
     "context": "vouchers section name",

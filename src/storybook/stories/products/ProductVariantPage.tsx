@@ -3,6 +3,7 @@ import React from "react";
 
 import placeholderImage from "@assets/images/placeholder60x60.png";
 import { ProductErrorCode } from "@saleor/types/globalTypes";
+import { warehouseList } from "@saleor/warehouses/fixtures";
 import ProductVariantPage from "../../../products/components/ProductVariantPage";
 import { variant as variantFixture } from "../../../products/fixtures";
 import Decorator from "../../Decorator";
@@ -13,6 +14,7 @@ storiesOf("Views / Products / Product variant details", module)
   .addDecorator(Decorator)
   .add("when loaded data", () => (
     <ProductVariantPage
+      defaultWeightUnit="kg"
       header={variant.name || variant.sku}
       errors={[]}
       variant={variant}
@@ -23,11 +25,12 @@ storiesOf("Views / Products / Product variant details", module)
       onSubmit={() => undefined}
       onVariantClick={() => undefined}
       saveButtonBarState="default"
-      onWarehousesEdit={() => undefined}
+      warehouses={warehouseList}
     />
   ))
   .add("when loading data", () => (
     <ProductVariantPage
+      defaultWeightUnit="kg"
       header={undefined}
       errors={[]}
       loading={true}
@@ -39,11 +42,12 @@ storiesOf("Views / Products / Product variant details", module)
       onSubmit={() => undefined}
       onVariantClick={() => undefined}
       saveButtonBarState="default"
-      onWarehousesEdit={() => undefined}
+      warehouses={warehouseList}
     />
   ))
   .add("attribute errors", () => (
     <ProductVariantPage
+      defaultWeightUnit="kg"
       header={variant.name || variant.sku}
       variant={variant}
       onAdd={() => undefined}
@@ -71,6 +75,6 @@ storiesOf("Views / Products / Product variant details", module)
         message: "Generic form error",
         ...error
       }))}
-      onWarehousesEdit={() => undefined}
+      warehouses={warehouseList}
     />
   ));

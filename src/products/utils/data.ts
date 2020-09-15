@@ -9,6 +9,8 @@ import {
   ProductDetails_product_variants
 } from "@saleor/products/types/ProductDetails";
 import { SearchProductTypes_search_edges_node_productAttributes } from "@saleor/searches/types/SearchProductTypes";
+import { StockInput } from "@saleor/types/globalTypes";
+import { FormsetAtomicData } from "@saleor/hooks/useFormset";
 import { ProductAttributeInput } from "../components/ProductAttributes";
 import { VariantAttributeInput } from "../components/ProductVariantAttributes";
 import { ProductVariant } from "../types/ProductVariant";
@@ -179,6 +181,7 @@ export interface ProductUpdatePageFormData {
   seoTitle: string;
   sku: string;
   trackInventory: boolean;
+  weight: string;
 }
 
 export function getProductUpdatePageFormData(
@@ -208,6 +211,16 @@ export function getProductUpdatePageFormData(
           : undefined,
       ""
     ),
-    trackInventory: !!product?.variants[0]?.trackInventory
+    trackInventory: !!product?.variants[0]?.trackInventory,
+    weight: product?.weight?.value.toString() || ""
+  };
+}
+
+export function mapFormsetStockToStockInput(
+  stock: FormsetAtomicData<null, string>
+): StockInput {
+  return {
+    quantity: parseInt(stock.value, 10),
+    warehouse: stock.id
   };
 }
