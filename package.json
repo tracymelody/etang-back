@@ -32,7 +32,7 @@
     "classnames": "^2.2.6",
     "crc-32": "^1.2.0",
     "downshift": "^1.31.16",
-    "draft-js": "^0.10.5",
+    "draft-js": "^0.11.7",
     "draftail": "^1.2.1",
     "draftjs-to-html": "^0.9.1",
     "fast-array-diff": "^0.2.0",
@@ -43,7 +43,7 @@
     "is-url": "^1.2.4",
     "jss": "^9.8.7",
     "keycode": "^2.2.0",
-    "lodash": "^4.17.14",
+    "lodash": "^4.17.20",
     "lodash-es": "^4.17.14",
     "moment-timezone": "^0.5.26",
     "qs": "^6.9.0",
@@ -140,7 +140,7 @@
     "tsconfig-paths-webpack-plugin": "^3.2.0",
     "webpack": "^4.35.3",
     "webpack-cli": "^3.3.6",
-    "webpack-dev-server": "^3.10.1"
+    "webpack-dev-server": "^3.11.0"
   },
   "optionalDependencies": {
     "fsevents": "^1.2.9"
