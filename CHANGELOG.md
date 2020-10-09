@@ -48,7 +48,6 @@ All notable, unreleased changes to this project will be documented in this file.
 - Fix misaligned rich text draft controls - #725 by @orzechdev
 - Allow taxes to be configured per product - #728 by @dominik-zeglen
 
-
 ## 2.10.1
 
 - Add weight field and fix warehouse country selection - #597 by @dominik-zeglen
@@ -104,7 +103,6 @@ All notable, unreleased changes to this project will be documented in this file.
 - Update product stock management to newest design - #515 by @dominik-zeglen
 - Handle untracked products - #523 by @dominik-zeglen
 - Display correct error if there were no graphql errors - #525 by @dominik-zeglen
-- Fix updating order details on address change #711 - by @orzechdev
 
 ## 2.0.0
 
